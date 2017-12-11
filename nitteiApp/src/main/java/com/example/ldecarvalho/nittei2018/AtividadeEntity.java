@@ -19,6 +19,16 @@ public class AtividadeEntity {
     private String group;
     private String level;
 
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+
+    private String organization;
+
     public String getSubject() {
         return subject;
     }

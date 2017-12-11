@@ -4,20 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-
-import com.example.ldecarvalho.nittei2018.dummy.DummyContent;
-
+import android.widget.SearchView;
+import com.example.ldecarvalho.nittei2018.provider.ActivityContent;
+import com.example.ldecarvalho.nittei2018.provider.ActivityContent.ActivityItem;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * An activity representing a list of Atividades. This activity
@@ -27,7 +27,7 @@ import java.util.List;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class AtividadeListActivity extends AppCompatActivity {
+public class AtividadeListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -43,6 +43,10 @@ public class AtividadeListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
+
+        final SearchView searchView = (SearchView)findViewById(R.id.filterActivities);
+        searchView.setOnQueryTextListener(this);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -67,19 +71,52 @@ public class AtividadeListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, ActivityContent.ITEMS, mTwoPane));
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String query) {
+       List<ActivityItem> items = filter( ActivityContent.ITEMS, query);
+
+        RecyclerView recyclerView = findViewById(R.id.atividade_list);
+        assert recyclerView != null;
+        setupRecyclerView((RecyclerView) recyclerView);
+
+       recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, items, mTwoPane));
+
+        return true;
+    }
+
+    private List<ActivityItem> filter(List<ActivityItem> items, String query) {
+        final String lowerCaseQuery = query.toLowerCase();
+
+        final List<ActivityItem> filteredDummyItemList = new ArrayList<>();
+        for (ActivityItem item : items) {
+            final String text = item.getContent().toLowerCase();
+            final String date = String.valueOf(item.getId());
+            final String detail = String.valueOf(item.getDetails());
+            if (text.contains(lowerCaseQuery) || date.contains(lowerCaseQuery) || detail.contains(lowerCaseQuery)) {
+                filteredDummyItemList.add(item);
+            }
+        }
+        return filteredDummyItemList;
     }
 
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final AtividadeListActivity mParentActivity;
-        private final List<DummyContent.DummyItem> mValues;
+        private final List<ActivityItem> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+                ActivityItem item = (ActivityItem) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
                     arguments.putString(AtividadeDetailFragment.ARG_ITEM_ID, item.id);
@@ -99,7 +136,7 @@ public class AtividadeListActivity extends AppCompatActivity {
         };
 
         SimpleItemRecyclerViewAdapter(AtividadeListActivity parent,
-                                      List<DummyContent.DummyItem> items,
+                                      List<ActivityItem> items,
                                       boolean twoPane) {
             mValues = items;
             mParentActivity = parent;
@@ -137,5 +174,7 @@ public class AtividadeListActivity extends AppCompatActivity {
                 mContentView = (TextView) view.findViewById(R.id.content);
             }
         }
+
+
     }
 }

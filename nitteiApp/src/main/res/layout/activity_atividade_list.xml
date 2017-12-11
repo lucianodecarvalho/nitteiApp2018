@@ -19,6 +19,12 @@
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
+        <SearchView
+            android:id="@+id/filterActivities"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:actionViewClass="android.support.v7.widget.SearchView" />
+
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
