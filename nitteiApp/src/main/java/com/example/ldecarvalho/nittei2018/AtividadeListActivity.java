@@ -2,6 +2,7 @@ package com.example.ldecarvalho.nittei2018;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -12,12 +13,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.SearchView;
+import android.widget.TextView;
+
 import com.example.ldecarvalho.nittei2018.provider.ActivityContent;
 import com.example.ldecarvalho.nittei2018.provider.ActivityContent.ActivityItem;
-import java.util.List;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An activity representing a list of Atividades. This activity
@@ -52,7 +55,7 @@ public class AtividadeListActivity extends AppCompatActivity implements SearchVi
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Under construction", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -71,7 +74,7 @@ public class AtividadeListActivity extends AppCompatActivity implements SearchVi
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, ActivityContent.ITEMS, mTwoPane));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, new ActivityContent(getBaseContext()).ITEMS, mTwoPane));
     }
 
     @Override
@@ -81,13 +84,13 @@ public class AtividadeListActivity extends AppCompatActivity implements SearchVi
 
     @Override
     public boolean onQueryTextChange(String query) {
-       List<ActivityItem> items = filter( ActivityContent.ITEMS, query);
+        List<ActivityItem> items = filter( ActivityContent.ITEMS, query);
 
         RecyclerView recyclerView = findViewById(R.id.atividade_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
 
-       recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, items, mTwoPane));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, items, mTwoPane));
 
         return true;
     }
@@ -129,7 +132,6 @@ public class AtividadeListActivity extends AppCompatActivity implements SearchVi
                     Context context = view.getContext();
                     Intent intent = new Intent(context, AtividadeDetailActivity.class);
                     intent.putExtra(AtividadeDetailFragment.ARG_ITEM_ID, item.id);
-
                     context.startActivity(intent);
                 }
             }
@@ -157,6 +159,42 @@ public class AtividadeListActivity extends AppCompatActivity implements SearchVi
 
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
+            if(position %2 == 1)
+            {
+                holder.itemView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                //  holder.imageView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            }
+            else
+            {
+                holder.itemView.setBackgroundColor(Color.parseColor("#FFFAF8FD"));
+                //  holder.imageView.setBackgroundColor(Color.parseColor("#FFFAF8FD"));
+            }
+
+
+            if (mValues.get(position).getId().equals("10-01-2018")){
+                holder.itemView.setBackgroundColor(Color.parseColor("#FF80AB"));
+//                holder.itemView.notify();
+               // notifyItemChanged(position);
+            }
+
+            if (mValues.get(position).getContent().contains("semana")){
+                holder.itemView.setBackgroundColor(Color.parseColor("#BA68C8"));
+            }
+
+            if (mValues.get(position).getContent().contains("Recesso")){
+                holder.itemView.setBackgroundColor(Color.parseColor("#FFCC0000"));
+            }
+
+            if (mValues.get(position).getContent().contains("Feriado")){
+                holder.itemView.setBackgroundColor(Color.parseColor("#FFCC0000"));
+            }
+            if (mValues.get(position).getContent().contains("Convenção")){
+                holder.itemView.setBackgroundColor(Color.parseColor("#FDD835"));
+            }
+
+            if (mValues.get(position).getContent().contains("SUCESSOR")){
+                holder.itemView.setBackgroundColor(Color.parseColor("#FF99CC00"));
+            }
         }
 
         @Override
