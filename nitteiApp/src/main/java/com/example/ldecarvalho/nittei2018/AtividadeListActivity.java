@@ -53,14 +53,14 @@ public class AtividadeListActivity extends AppCompatActivity implements SearchVi
         searchView.setOnQueryTextListener(this);
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Under construction", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         if (findViewById(R.id.atividade_detail_container) != null) {
             // The detail container view will be present only in the
@@ -189,18 +189,34 @@ public class AtividadeListActivity extends AppCompatActivity implements SearchVi
             }
 
             if (mValues.get(position).getContent().contains("Recesso")){
-                holder.itemView.setBackgroundColor(Color.parseColor("#FFCC0000"));
+                holder.itemView.setBackgroundColor(Color.parseColor("#808080"));
             }
 
             if (mValues.get(position).getContent().contains("Feriado")){
-                holder.itemView.setBackgroundColor(Color.parseColor("#FFCC0000"));
+                holder.itemView.setBackgroundColor(Color.parseColor("#808080"));
             }
             if (mValues.get(position).getContent().contains("Convenção")){
                 holder.itemView.setBackgroundColor(Color.parseColor("#FDD835"));
             }
 
             if (mValues.get(position).getContent().contains("SUCESSOR")){
-                holder.itemView.setBackgroundColor(Color.parseColor("#FF99CC00"));
+                holder.itemView.setBackgroundColor(Color.parseColor("#99CC00"));
+            }
+
+            if (mValues.get(position).getContent().contains("DMJ")){
+                holder.itemView.setBackgroundColor(Color.parseColor("#00BFFF"));
+            }
+
+            if (mValues.get(position).getContent().contains("DFJ")){
+                holder.itemView.setBackgroundColor(Color.parseColor("#FF69B4"));
+            }
+
+            if (mValues.get(position).getContent().contains("DF")){
+                holder.itemView.setBackgroundColor(Color.parseColor("#C71585"));
+            }
+
+            if (mValues.get(position).getContent().contains("DS")){
+                holder.itemView.setBackgroundColor(Color.parseColor("#DAA520"));
             }
         }
 
