@@ -19,7 +19,9 @@ import android.widget.TextView;
 import com.example.ldecarvalho.nittei2018.provider.ActivityContent;
 import com.example.ldecarvalho.nittei2018.provider.ActivityContent.ActivityItem;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -170,8 +172,13 @@ public class AtividadeListActivity extends AppCompatActivity implements SearchVi
                 //  holder.imageView.setBackgroundColor(Color.parseColor("#FFFAF8FD"));
             }
 
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM");
 
-            if (mValues.get(position).getId().equals("10-01-2018")){
+            String todayDate;
+
+            todayDate =  dateFormatter.format(new Date());
+
+            if (mValues.get(position).getId().equals(todayDate.toString())){
                 holder.itemView.setBackgroundColor(Color.parseColor("#FF80AB"));
 //                holder.itemView.notify();
                // notifyItemChanged(position);
