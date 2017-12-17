@@ -60,7 +60,7 @@ public class CSVReader extends ContentProvider {
         List<AtividadeEntity> atividadeEntityList = new ArrayList<AtividadeEntity>();
 
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        SimpleDateFormat newFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat newFormat = new SimpleDateFormat("dd-MM");
         String cvsSplitBy = ",";
         BufferedReader reader = new BufferedReader(csvStreamReader);
         try {
