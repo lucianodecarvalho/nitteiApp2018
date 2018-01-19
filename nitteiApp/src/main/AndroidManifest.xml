@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ldecarvalho.nittei2018">
+    package="com.regionalindustrial.nitteiapp">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".AtividadeListActivity"
+            android:name="com.regionalindustrial.nitteiapp.AtividadeListActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:versionCode="0"
@@ -22,20 +22,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AtividadeDetailActivity"
+            android:name="com.regionalindustrial.nitteiapp.AtividadeDetailActivity"
             android:label="@string/title_atividade_detail"
-            android:parentActivityName=".AtividadeListActivity"
+            android:parentActivityName="com.regionalindustrial.nitteiapp.AtividadeListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.ldecarvalho.nittei2018.AtividadeListActivity" />
+                android:value="com.regionalindustrial.nitteiapp.AtividadeListActivity" />
         </activity>
 
         <provider
-            android:name=".NitteiContentProvider"
-            android:authorities="com.example.ldecarvalho.nittei2018"
+            android:name="com.regionalindustrial.nitteiapp.NitteiContentProvider"
+            android:authorities="com.regionalindustrial.nitteiapp"
             android:enabled="true"
             android:exported="true"></provider>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET" />;
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>

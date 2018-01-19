@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Nittei 2018</string>
     <string name="title_atividade_detail">Atividade Detail</string>
-    <string name="nittei_file">nittei.csv</string>
+    <string name="google_app_id">nitteiApp</string>
 </resources>

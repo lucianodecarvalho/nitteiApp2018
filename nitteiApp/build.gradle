@@ -3,12 +3,12 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.example.ldecarvalho.nittei2018"
+        applicationId "com.regionalindustrial.nitteiapp"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionName 'Test'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionCode 2
     }
     buildTypes {
         release {
@@ -18,12 +18,18 @@ android {
             versionNameSuffix 'PreProd'
             zipAlignEnabled false
         }
+        debug {
+            debuggable false
+        }
     }
     buildToolsVersion '26.0.2'
+    productFlavors {
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:support-v4:26.1.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
@@ -31,4 +37,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile 'com.google.android.gms:play-services:8.4.0'
 }
